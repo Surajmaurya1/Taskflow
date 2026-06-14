@@ -8,19 +8,16 @@ const EmployeDashboard = () => {
   const navigation = [
     {
       label: 'My Focus',
-      description: 'Assigned work and priorities',
       active: true,
-      icon: '01',
+      icon: 'F',
     },
     {
       label: 'Performance',
-      description: 'Completion and throughput',
-      icon: '02',
+      icon: 'P',
     },
     {
       label: 'Schedule',
-      description: 'Upcoming due dates',
-      icon: '03',
+      icon: 'S',
     },
   ]
 

@@ -8,19 +8,16 @@ const AdminDashboard = () => {
   const navigation = [
     {
       label: 'Overview',
-      description: 'Executive view of delivery',
       active: true,
-      icon: '01',
+      icon: 'O',
     },
     {
       label: 'Task Planning',
-      description: 'Assign priorities and owners',
-      icon: '02',
+      icon: 'T',
     },
     {
       label: 'Team Capacity',
-      description: 'Track active workload',
-      icon: '03',
+      icon: 'C',
     },
   ]
 

@@ -15,17 +15,17 @@ const DashboardShell = ({
       <aside className="dashboard-sidebar">
         <div className="sidebar-brand">
           <div className="sidebar-brand-mark">TF</div>
-          <div>
-            <p className="sidebar-eyebrow">TaskFlow Suite</p>
+          <div className="sidebar-brand-copy">
+            <p className="sidebar-eyebrow">TaskFlow</p>
             <h1>Operations Hub</h1>
           </div>
         </div>
 
-        <div className="sidebar-panel">
-          <span className="sidebar-panel-label">Workspace Tier</span>
-          <div className="sidebar-tier">
-            <strong>Premium</strong>
-            <span>{role}</span>
+        <div className="sidebar-workspace-pill">
+          <span className="sidebar-workspace-dot" aria-hidden="true"></span>
+          <div>
+            <strong>{role}</strong>
+            <span>Focused workspace</span>
           </div>
         </div>
 
@@ -35,19 +35,13 @@ const DashboardShell = ({
               key={item.label}
               className={`sidebar-nav-item${item.active ? ' is-active' : ''}`}
             >
-              <span className="sidebar-nav-icon">{item.icon}</span>
-              <div>
-                <div className="sidebar-nav-label">{item.label}</div>
-                <div className="sidebar-nav-description">{item.description}</div>
-              </div>
+              <span className="sidebar-nav-icon" aria-hidden="true">
+                {item.icon}
+              </span>
+              <span className="sidebar-nav-label">{item.label}</span>
             </div>
           ))}
         </nav>
-
-        <div className="sidebar-note card-glass">
-          <span className="sidebar-panel-label">Service Standard</span>
-          <p>Calm motion, clear hierarchy, and sharper decision surfaces across the workspace.</p>
-        </div>
       </aside>
 
       <main className="dashboard-main">
