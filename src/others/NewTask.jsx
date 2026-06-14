@@ -1,48 +1,45 @@
-import React, { useState, useEffect, useRef } from "react";
-import { addTaskToEmployee } from "../LocalStorage/LocalStorage";
+import React, { useState, useEffect } from 'react'
+import { addTaskToEmployee } from '../LocalStorage/LocalStorage'
 
 const NewTask = () => {
-  const [taskTitle, setTasktitle] = useState("");
-  const [date, setDate] = useState("");
-  const [description, setDescription] = useState("");
-  const [assignTo, setAssignTo] = useState("");
-  const [category, setCategory] = useState("");
-  const [employees, setEmployees] = useState([]);
-  const [showSuccess, setShowSuccess] = useState(false);
-  const formRef = useRef(null);
+  const [taskTitle, setTasktitle] = useState('')
+  const [date, setDate] = useState('')
+  const [description, setDescription] = useState('')
+  const [assignTo, setAssignTo] = useState('')
+  const [category, setCategory] = useState('')
+  const [employees, setEmployees] = useState([])
+  const [showSuccess, setShowSuccess] = useState(false)
 
-  // Load employee list from localStorage for the dropdown
   useEffect(() => {
     const loadEmployees = () => {
       try {
-        const data = JSON.parse(localStorage.getItem("employe")) || [];
-        setEmployees(data);
+        const data = JSON.parse(localStorage.getItem('employe')) || []
+        setEmployees(data)
       } catch {
-        setEmployees([]);
+        setEmployees([])
       }
-    };
+    }
 
-    loadEmployees();
-    window.addEventListener("localStorageUpdated", loadEmployees);
-    return () => window.removeEventListener("localStorageUpdated", loadEmployees);
-  }, []);
+    loadEmployees()
+    window.addEventListener('localStorageUpdated', loadEmployees)
+    return () => window.removeEventListener('localStorageUpdated', loadEmployees)
+  }, [])
 
   const formHandle = (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    const data = JSON.parse(localStorage.getItem("employe")) || [];
+    const data = JSON.parse(localStorage.getItem('employe')) || []
+    let maxId = 0
 
-    // Generate next task ID
-    let maxId = 0;
-    data.forEach(emp => {
+    data.forEach((emp) => {
       if (emp.tasks) {
-        emp.tasks.forEach(task => {
-          if (task.id > maxId) maxId = task.id;
-        });
+        emp.tasks.forEach((task) => {
+          if (task.id > maxId) maxId = task.id
+        })
       }
-    });
+    })
 
-    const newTask = {
+    addTaskToEmployee(assignTo, {
       id: maxId + 1,
       taskTitle,
       description,
@@ -53,66 +50,65 @@ const NewTask = () => {
       newTask: true,
       complete: false,
       failed: false,
-    };
+    })
 
-    addTaskToEmployee(assignTo, newTask);
+    setShowSuccess(true)
+    setTimeout(() => setShowSuccess(false), 600)
 
-    // Success flash
-    setShowSuccess(true);
-    setTimeout(() => setShowSuccess(false), 600);
-
-    // Reset form
-    setTasktitle("");
-    setDate("");
-    setDescription("");
-    setAssignTo("");
-    setCategory("");
-  };
+    setTasktitle('')
+    setDate('')
+    setDescription('')
+    setAssignTo('')
+    setCategory('')
+  }
 
   const categories = [
-    "Development",
-    "Design",
-    "Bug Fix",
-    "DevOps",
-    "Marketing",
-    "Testing",
-    "QA",
-    "Review",
-    "Content",
-    "Research",
-    "Analytics",
-    "Security",
-    "Documentation",
-  ];
+    'Development',
+    'Design',
+    'Bug Fix',
+    'DevOps',
+    'Marketing',
+    'Testing',
+    'QA',
+    'Review',
+    'Content',
+    'Research',
+    'Analytics',
+    'Security',
+    'Documentation',
+  ]
 
   return (
-    <div className={`card new-task-section section-gap ${showSuccess ? 'success-flash' : ''}`} style={{ padding: 'var(--space-lg)' }}>
-      {/* Header */}
+    <section className={`card-glass new-task-section section-gap section-panel ${showSuccess ? 'success-flash' : ''}`}>
       <div className="section-header">
-        <h2>Create New Task</h2>
-        <p>Assign tasks to your team members</p>
+        <div>
+          <span className="section-kicker">Assignment Studio</span>
+          <h2>Create new task</h2>
+        </div>
+        <p>Assign work with clearer ownership, timing, and task context.</p>
       </div>
 
-      <form ref={formRef} onSubmit={formHandle} className="new-task-form">
-        {/* Left Column — Fields */}
+      <form onSubmit={formHandle} className="new-task-form">
         <div className="form-left">
-          {/* Task Title */}
           <div className="input-group">
-            <label className="input-label" htmlFor="task-title">Task Title</label>
+            <label className="input-label" htmlFor="task-title">
+              Task Title
+            </label>
             <input
               id="task-title"
               value={taskTitle}
               onChange={(e) => setTasktitle(e.target.value)}
               type="text"
-              placeholder="e.g. Implement user authentication"
+              placeholder="Implement user authentication"
               className="input"
               required
             />
           </div>
 
-          {/* Date */}
           <div className="input-group">
-            <label className="input-label" htmlFor="task-date">Due Date</label>
+            <label className="input-label" htmlFor="task-date">
+              Due Date
+            </label>
             <input
               id="task-date"
               value={date}
@@ -123,9 +119,10 @@ const NewTask = () => {
             />
           </div>
 
-          {/* Assign To — DROPDOWN */}
           <div className="input-group">
-            <label className="input-label" htmlFor="task-assign">Assign To</label>
+            <label className="input-label" htmlFor="task-assign">
+              Assign To
+            </label>
             <select
               id="task-assign"
               value={assignTo}
@@ -133,7 +130,9 @@ const NewTask = () => {
               className="select"
               required
             >
-              <option value="" disabled>Select an employee</option>
+              <option value="" disabled>
+                Select an employee
+              </option>
               {employees.map((emp) => (
                 <option key={emp.id} value={emp.name}>
                   {emp.name}
@@ -142,9 +141,10 @@ const NewTask = () => {
             </select>
           </div>
 
-          {/* Category — DROPDOWN */}
           <div className="input-group">
-            <label className="input-label" htmlFor="task-category">Category</label>
+            <label className="input-label" htmlFor="task-category">
+              Category
+            </label>
             <select
               id="task-category"
               value={category}
@@ -152,33 +152,36 @@ const NewTask = () => {
               className="select"
               required
             >
-              <option value="" disabled>Select a category</option>
+              <option value="" disabled>
+                Select a category
+              </option>
               {categories.map((cat) => (
-                <option key={cat} value={cat}>{cat}</option>
+                <option key={cat} value={cat}>
+                  {cat}
+                </option>
               ))}
             </select>
           </div>
         </div>
 
-        {/* Right Column — Description */}
         <div className="form-right">
-          <div className="input-group" style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-            <label className="input-label" htmlFor="task-desc">Task Details</label>
+          <div className="input-group form-right-group">
+            <label className="input-label" htmlFor="task-desc">
+              Task Details
+            </label>
             <textarea
               id="task-desc"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="Describe what needs to be done..."
+              placeholder="Describe goals, expected output, and any constraints..."
               className="textarea"
-              style={{ flex: 1 }}
               required
             ></textarea>
           </div>
         </div>
 
-        {/* Submit */}
         <div className="form-submit">
-          <button type="submit" className="btn btn-primary btn-lg" style={{ width: '100%' }}>
+          <button type="submit" className="btn btn-primary btn-lg new-task-submit">
             <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
             </svg>
@@ -186,8 +189,8 @@ const NewTask = () => {
           </button>
         </div>
       </form>
-    </div>
-  );
-};
+    </section>
+  )
+}
 
-export default NewTask;
+export default NewTask

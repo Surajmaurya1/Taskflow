@@ -38,8 +38,16 @@ const TaskListNumber = () => {
   }, [user?.name]);
 
   return (
-    <div className="stats-grid section-gap">
-      {/* New Tasks */}
+    <section className="section-panel section-gap">
+      <div className="section-header">
+        <div>
+          <span className="section-kicker">Performance Snapshot</span>
+          <h3>Task distribution</h3>
+        </div>
+        <p>See where current effort is landing across your assignments.</p>
+      </div>
+
+      <div className="stats-grid">
       <div className="stat-card stat-card--new">
         <div className="stat-icon">
           <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -82,7 +90,8 @@ const TaskListNumber = () => {
         <div className="stat-value">{taskCounts.failedTasks}</div>
         <div className="stat-label">Failed</div>
       </div>
-    </div>
+      </div>
+    </section>
   );
 };
 

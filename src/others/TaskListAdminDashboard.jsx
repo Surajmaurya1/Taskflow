@@ -32,12 +32,15 @@ const TaskListAdminDashboard = () => {
   }, []);
 
   return (
-    <div className="employee-table section-gap">
+    <section className="employee-table section-gap section-panel">
       <div className="section-header">
-        <h2>Team Overview</h2>
+        <div>
+          <span className="section-kicker">Delivery Visibility</span>
+          <h2>Team overview</h2>
+        </div>
+        <p>Monitor assignment health and spot where support is needed.</p>
       </div>
 
-      {/* Table Header */}
       <div className="table-header">
         <span>Employee</span>
         <span>New</span>
@@ -47,7 +50,6 @@ const TaskListAdminDashboard = () => {
         <span>Status</span>
       </div>
 
-      {/* Table Body */}
       <div className="table-body">
         {employees.map((emp) => {
           const counts = getTaskCounts(emp);
@@ -55,15 +57,16 @@ const TaskListAdminDashboard = () => {
 
           return (
             <div key={emp.id} className="table-row">
-              {/* Employee Info */}
               <div className="employee-info">
                 <div className="employee-avatar">
                   {emp.name?.charAt(0).toUpperCase()}
                 </div>
-                <span className="employee-name">{emp.name}</span>
+                <div>
+                  <span className="employee-name">{emp.name}</span>
+                  <div className="employee-role-line">{emp.email}</div>
+                </div>
               </div>
 
-              {/* Task Counts */}
               <div className="table-cell" style={{ color: 'var(--status-new)' }}>
                 {counts.newTasks}
               </div>
@@ -77,7 +80,6 @@ const TaskListAdminDashboard = () => {
                 {counts.failedTasks}
               </div>
 
-              {/* Status */}
               <div className="table-cell">
                 {counts.activeTasks > 0 ? (
                   <span className="badge badge-active">
@@ -96,7 +98,7 @@ const TaskListAdminDashboard = () => {
           );
         })}
       </div>
-    </div>
+    </section>
   );
 };
 

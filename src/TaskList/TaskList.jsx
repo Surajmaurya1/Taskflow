@@ -116,19 +116,28 @@ const TaskList = () => {
 
   if (tasks.length === 0) {
     return (
-      <div className="section-gap" style={{ textAlign: 'center', padding: 'var(--space-2xl)', color: 'var(--text-tertiary)' }}>
+      <div className="section-panel section-gap empty-state">
         <svg width="48" height="48" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ margin: '0 auto var(--space-md)', opacity: 0.4 }}>
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
         </svg>
-        <p style={{ fontWeight: 500 }}>No tasks assigned yet</p>
-        <p style={{ fontSize: '0.85rem', marginTop: '4px' }}>Tasks assigned to you will appear here.</p>
+        <p style={{ fontWeight: 600 }}>No tasks assigned yet</p>
+        <p style={{ fontSize: '0.92rem', marginTop: '4px' }}>Tasks assigned to you will appear here.</p>
       </div>
     );
   }
 
   return (
-    <div className="task-scroll section-gap">
-      <div className="task-cards-row">
+    <section className="section-panel section-gap">
+      <div className="section-header">
+        <div>
+          <span className="section-kicker">Execution Board</span>
+          <h3>Assigned work</h3>
+        </div>
+        <p>Open each task, review timing, and close work with one action.</p>
+      </div>
+
+      <div className="task-scroll">
+        <div className="task-cards-row">
         {tasks.map((task) => {
           const catClass = getCategoryClass(task.category);
           
@@ -161,12 +170,7 @@ const TaskList = () => {
                 {!task.complete && (
                   <button
                     onClick={() => handleComplete(task.id)}
-                    className="btn btn-sm"
-                    style={{ 
-                      background: 'var(--status-complete-bg)', 
-                      color: 'var(--status-complete)', 
-                      border: '1px solid var(--status-complete-border)' 
-                    }}
+                    className="btn btn-sm btn-success-soft"
                   >
                     <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -178,8 +182,9 @@ const TaskList = () => {
             </div>
           );
         })}
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 
