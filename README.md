@@ -1,3 +1,51 @@
+TaskFlow is a role-based task management application built with React and Vite. It provides a simple demo workflow for administrators to assign tasks and for employees to view and complete their assigned work through separate dashboards.
+
+## Overview
+
+This project demonstrates a lightweight frontend-only employee task system with:
+
+- Role-based login flow for admin and employee users
+- Separate dashboards for task creation and task tracking
+- Local storage persistence for seeded users, tasks, and session state
+- Responsive UI built with reusable React components
+
+The application is designed as a portfolio/demo project and currently uses browser `localStorage` instead of a backend database or authentication service.
+
+## Features
+
+- Admin login and employee login flows
+- Persistent session handling using `localStorage`
+- Pre-seeded demo users and task data
+- Admin dashboard for creating and assigning tasks
+- Employee dashboard for viewing assigned tasks
+- Task summary cards for new, active, completed, and failed items
+- Task completion workflow for employees
+- Live UI refresh when task data changes in local storage
+- Form validation with a clean single-page user experience
+
+## Tech Stack
+
+- React 19
+- Vite 7
+- JavaScript (ES Modules)
+- CSS3
+- ESLint 9
+
+## Project Structure
+
+```text
+src/
+  Auth/             Context-based authentication state
+  Dashboard/        Admin and employee dashboard layouts
+  Header/           Header and logout modal components
+  LocalStorage/     Seed data and local storage helpers
+  Loginpage/        Login screen
+  others/           Task creation and dashboard widgets
+  TaskList/         Employee task listing UI
+  App.jsx           Main app flow and role switching
+  main.jsx          Application entry point
+  index.css         Global styling
+```
 ```
 
 ## How It Works
